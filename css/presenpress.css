@@ -1,0 +1,24 @@
+#presenpress-cursor
+{
+    position: fixed;
+    z-index: 99999;
+    background-image: url(../img/icon.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+    opacity: 0.7;
+    display: none;
+}
+
+#presenpress-highlight
+{
+    position: fixed;
+    width: 3000px;
+    height: 3000px;
+    background-image: url(../img/highlight.png);
+    background-color: transparent important!;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 99999;
+}
