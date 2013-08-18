@@ -2,7 +2,7 @@
 {
     position: fixed;
     z-index: 99999;
-    background-image: url(../img/icon.png);
+    background-image: url(../img/cursor.png);
     background-position: center center;
     background-repeat: no-repeat;
     width: 200px;
@@ -21,4 +21,5 @@
     background-position: center center;
     background-repeat: no-repeat;
     z-index: 99999;
+    opacity: 0.9;
 }

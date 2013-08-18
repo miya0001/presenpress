@@ -1,11 +1,16 @@
 (function($){
+    var defaults = {
+        history: true,
+        transition: 'default'
+    };
+    var options = $.extend(defaults, presentation_settings);
+
     Reveal.initialize({
         controls: true,
         progress: true,
-        history: true,
+        history: options.history,
         center: true,
-        theme: Reveal.getQueryHash().theme,
-        transition: Reveal.getQueryHash().transition || 'defalut',
+        transition: options.transition,
         dependencies: [
             { src: presenpress_url + '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
             { src: presenpress_url + '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },

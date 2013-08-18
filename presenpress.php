@@ -14,7 +14,6 @@ register_activation_hook(__FILE__, 'presenpress_activation');
 register_deactivation_hook(__FILE__, 'presenpress_deactivation');
 
 function presenpress_activation(){
-    add_rewrite_endpoint(PRESENPRESS_REWRITE_PATH, EP_ROOT);
     flush_rewrite_rules();
 }
 
@@ -25,6 +24,7 @@ function presenpress_deactivation(){
 class PresenPress {
 
 const reveal_version = '2.4.0';
+const post_type = 'presenpress';
 
 function __construct()
 {
@@ -38,15 +38,29 @@ public function register()
 public function plugins_loaded()
 {
     add_action('init', array($this, 'init'));
-    add_action('query_vars', array($this, 'query_vars'));
     add_action('template_redirect', array($this, 'template_redirect'));
     add_action('presenpress_enqueue_scripts', array($this, 'presenpress_enqueue_scripts'));
     add_action('presenpress_head', array($this, 'presenpress_head'));
     add_action('presenpress_footer', array($this, 'presenpress_footer'));
-    add_action('wp', array($this, 'parse_request'), 9999);
+    add_action('wp', array($this, 'wp'), 9999);
+    add_action('save_post', array($this, 'save_post'));
+    add_action('admin_head', array($this, 'admin_head'));
 }
 
-public function parse_request()
+public function admin_head()
+{
+    echo <<<EOL
+<style>
+#presenpress-settings th,
+#presenpress-settings td
+{
+    padding: 5px 10px;
+}
+</style>
+EOL;
+}
+
+public function wp()
 {
     if ($this->is_presen()) {
         add_filter('show_admin_bar', '__return_false');
@@ -60,6 +74,8 @@ public function presenpress_footer()
 
 public function presenpress_head()
 {
+    global $wp_query;
+
     do_action('presenpress_enqueue_scripts');
 
     wp_print_styles();
@@ -69,11 +85,21 @@ public function presenpress_head()
         <script>
             var presenpress_url  = '<?php echo PRESENPRESS_URL; ?>';
             document.write( '<link rel="stylesheet" href="' + presenpress_url + '/reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+            var presentation_settings = {
+                history: <?php echo get_post_meta($wp_query->post->ID, '_presenpress_history', true) ? 'true' : 'false'; ?>,
+                transition: '<?php echo get_post_meta($wp_query->post->ID, '_presenpress_transition', true); ?>'
+            };
         </script>
         <!--[if lt IE 9]>
         <script src="<?php echo PRESENPRESS_URL; ?>/reveal/lib/js/html5shiv.js"></script>
         <![endif]-->
 <?php
+
+    if ($style = get_post_meta($wp_query->post->ID, '_presenpress_style', true)) {
+        echo "<style>\n";
+        echo $style;
+        echo "</style>\n";
+    }
 }
 
 public function presenpress_enqueue_scripts()
@@ -85,9 +111,17 @@ public function presenpress_enqueue_scripts()
         self::reveal_version
     );
 
+    global $wp_query;
+    $theme_css = PRESENPRESS_URL.'/reveal/css/theme/default.css';
+    if ($theme = get_post_meta($wp_query->post->ID, '_presenpress_theme', true)) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $theme)) {
+            $theme_css = PRESENPRESS_URL.'/reveal/css/theme/'.$theme.'.css';
+        }
+    }
+
     wp_enqueue_style(
         'reveal-theme',
-        PRESENPRESS_URL.'/reveal/css/theme/default.css',
+        $theme_css,
         array('reveal'),
         self::reveal_version
     );
@@ -101,9 +135,15 @@ public function presenpress_enqueue_scripts()
 
     wp_enqueue_style(
         'presenpress-style',
-        PRESENPRESS_URL.'/css/presenpress.css',
-        array(),
-        filemtime(dirname(__FILE__).'/css/presenpress.css')
+        apply_filters(
+            'presenpress_stylesheet_url',
+            PRESENPRESS_URL.'/css/presenpress.css'
+        ),
+        array('reveal-zenburn'),
+        apply_filters(
+            'presenpress_stylesheet_version',
+            filemtime(dirname(__FILE__).'/css/presenpress.css')
+        )
     );
 
     wp_enqueue_script(
@@ -149,26 +189,221 @@ public function presenpress_enqueue_scripts()
 
 public function init()
 {
-    if (is_admin()) {
-        global $pagenow;
-        if ($pagenow === 'plugins.php') {
-            if (isset($_GET['plugin'])) {
-                if (basename(__FILE__) === basename($_GET['plugin'])) {
-                    return;
+    $args = array(
+        'label' => __('Presentations', 'presenpress'),
+        'labels' => array(
+            'singular_name' => __('Presentation', 'presenpress'),
+            'add_new_item' => __('Add New Presentation', 'presenpress'),
+            'edit_item' => __('Edit Presentation', 'presenpress'),
+            'add_new' => __('Add New', 'presenpress'),
+            'new_item' => __('New Presentation', 'presenpress'),
+            'view_item' => __('View Presentation', 'presenpress'),
+            'not_found' => __('No Presentations found.', 'presenpress'),
+            'not_found_in_trash' => __(
+                'No Presentations found in Trash.',
+                'presenpress'
+            ),
+            'search_items' => __('Search Presentations', 'presenpress'),
+        ),
+        'public' => true,
+        'publicly_queryable' => true,
+        'exclude_from_search' => true,
+        'show_ui' => true,
+        'capability_type' => 'post',
+        'hierarchical' => false,
+        'rewrite' => array(
+            'slug' => 'presentations',
+            'with_front' => false
+        ),
+        'show_in_nav_menus' => false,
+        'can_export' => false,
+        'menu_icon' => plugins_url('img/icon.png', __FILE__),
+        'register_meta_box_cb' => array($this, 'register_meta_box_cb'),
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'thumbnail',
+            'revisions',
+        )
+    );
+
+    register_post_type(
+        self::post_type,
+        apply_filters('presenpress_register_post_type_args', $args)
+    );
+
+}
+
+public function register_meta_box_cb()
+{
+    add_meta_box(
+        'presenpress-settings',
+        __('Presentation Settings', 'presenpress'),
+        array($this, 'meta_box_settings'),
+        self::post_type,
+        'normal',
+        'low'
+    );
+
+    add_meta_box(
+        'presenpress-style',
+        __('Presentation Styles', 'presenpress'),
+        array($this, 'meta_box_styles'),
+        self::post_type,
+        'normal',
+        'low'
+    );
+}
+
+public function meta_box_settings($post, $metabox)
+{
+    echo '<table>';
+
+
+    $theme = get_post_meta($post->ID, '_presenpress_theme', true);
+
+    $themes = array();
+    $dir = dirname(__FILE__).'/reveal/css/theme';
+    if (is_dir($dir)) {
+        if ($dh = opendir($dir)) {
+            while (($file = readdir($dh)) !== false) {
+                if (preg_match('/\.css$/', $file)) {
+                    $themes[] = $file;
                 }
             }
         }
-        add_rewrite_endpoint(PRESENPRESS_REWRITE_PATH, EP_ROOT);
     }
 
-    if ($this->is_presen()) {
+    echo '<tr>';
+    echo '<th style="text-align: left; font-weight: normal;">Theme:</th>';
+    echo '<td>';
+    echo "<select name=\"presenpress_theme\">";
+    echo '<option value="default">Default</option>';
+    foreach ($themes as $t) {
+        $option = preg_replace('/\.css$/', '', $t);
+        if ($option !== 'default') {
+            if ($option === $theme) {
+                $selected = 'selected="selected"';
+            } else {
+                $selected = '';
+            }
+            printf(
+                '<option value="%s" %s>%s</option>',
+                esc_attr($option),
+                $selected,
+                esc_html(ucwords($option))
+            );
+        }
     }
+    echo "</select>";
+    echo '</td>';
+    echo '</tr>';
+
+
+    $hist = get_post_meta($post->ID, '_presenpress_history', true);
+
+    echo '<tr>';
+    echo '<th style="text-align: left; font-weight: normal;">Browsing History:</th>';
+    echo '<td>';
+    if ($hist) {
+        $checked = 'checked="checked"';
+    } else {
+        $checked = '';
+    }
+    $radio = '<input type="checkbox" id="%1$s" name="%1$s" value="%2$s" %4$s> <label for="%1$s">%3$s</label>&nbsp;';
+    printf(
+        $radio,
+        'presenpress_history',
+        1,
+        'Enabled',
+        $checked
+    );
+    echo '</td>';
+    echo '</tr>';
+
+
+    $transition = get_post_meta($post->ID, '_presenpress_transition', true);
+
+    echo '<tr>';
+    echo '<th style="text-align: left; font-weight: normal;">Transtion:</th>';
+    echo '<td>';
+    $transitions = array(
+        'default',
+        'cube',
+        'page',
+        'concave',
+        'zoom',
+        'linear',
+        'fade',
+        'none',
+    );
+    echo "<select name=\"presenpress_transition\">";
+    foreach ($transitions as $t) {
+        if ($t === $transition) {
+            $selected = 'selected="selected"';
+        } else {
+            $selected = '';
+        }
+        printf(
+            '<option value="%s" %s>%s</option>',
+            esc_attr($t),
+            $selected,
+            esc_html(ucwords($t))
+        );
+    }
+    echo '</td>';
+    echo '</tr>';
+
+    echo '</table>';
 }
 
-public function query_vars($vars)
+public function meta_box_styles($post, $metabox)
 {
-    $vars[] = PRESENPRESS_REWRITE_PATH;
-    return $vars;
+    $style = get_post_meta($post->ID, '_presenpress_style', true);
+    if (!$style) {
+        $style = "/*
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6
+{
+    text-transform: none;
+}
+*/";
+    }
+
+    printf(
+        '<textarea name="presenpress_style" style="width: 100%%;height: 200px;">%s</textarea>',
+        esc_html($style)
+    );
+}
+
+public function save_post($id)
+{
+    if (!$this->is_presen()) {
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+        return $id;
+
+    if (isset($_POST['action']) && $_POST['action'] == 'inline-save')
+        return $id;
+
+    if (isset($_POST['presenpress_style'])) {
+        update_post_meta($id, '_presenpress_style', $_POST['presenpress_style']);
+    }
+
+    if (isset($_POST['presenpress_theme'])) {
+        update_post_meta($id, '_presenpress_theme', $_POST['presenpress_theme']);
+    }
+
+    if (isset($_POST['presenpress_history'])) {
+        update_post_meta($id, '_presenpress_history', 1);
+    } else {
+        update_post_meta($id, '_presenpress_history', 0);
+    }
+
+    if (isset($_POST['presenpress_transition'])) {
+        update_post_meta($id, '_presenpress_transition', $_POST['presenpress_transition']);
+    }
 }
 
 public function template_redirect()
@@ -188,8 +423,7 @@ private function send_404()
 
 private function is_presen()
 {
-    global $wp_query;
-    if (isset($wp_query->query[PRESENPRESS_REWRITE_PATH])) {
+    if (self::post_type === get_post_type()) {
         return true;
     } else {
         return false;
