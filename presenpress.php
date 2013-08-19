@@ -23,6 +23,7 @@ function presenpress_deactivation(){
 
 class PresenPress {
 
+const presenpress_version = '0.1.0';
 const reveal_version = '2.4.0';
 const post_type = 'presenpress';
 
@@ -87,7 +88,7 @@ public function presenpress_head()
             document.write( '<link rel="stylesheet" href="' + presenpress_url + '/reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
             var presentation_settings = {
                 history: <?php echo get_post_meta($wp_query->post->ID, '_presenpress_history', true) ? 'true' : 'false'; ?>,
-                transition: '<?php echo get_post_meta($wp_query->post->ID, '_presenpress_transition', true); ?>'
+                transition: '<?php echo esc_js(get_post_meta($wp_query->post->ID, '_presenpress_transition', true)); ?>'
             };
         </script>
         <!--[if lt IE 9]>
@@ -137,15 +138,15 @@ public function presenpress_enqueue_scripts()
         'presenpress-style',
         apply_filters(
             'presenpress_stylesheet_url',
-            PRESENPRESS_URL.'/css/presenpress.css'
+            PRESENPRESS_URL.'/css/presenpress.min.css'
         ),
         array('reveal-zenburn'),
         apply_filters(
             'presenpress_stylesheet_version',
-            filemtime(dirname(__FILE__).'/css/presenpress.css')
+            self::presenpress_version
         )
     );
-
+/*
     wp_enqueue_script(
         'leapjs',
         '//js.leapmotion.com/0.2.0/leap.min.js',
@@ -161,15 +162,15 @@ public function presenpress_enqueue_scripts()
         false,
         true
     );
-
+*/
     wp_enqueue_script(
-        'reveal-head-js',
-        PRESENPRESS_URL.'/reveal/lib/js/head.min.js',
+        'reveal-js',
+        PRESENPRESS_URL.'/js/reveal-package.min.js',
         array('jquery'),
         self::reveal_version,
         true
     );
-
+/*
     wp_enqueue_script(
         'reveal-js',
         PRESENPRESS_URL.'/reveal/js/reveal.min.js',
@@ -177,13 +178,13 @@ public function presenpress_enqueue_scripts()
         self::reveal_version,
         true
     );
-
+*/
     wp_enqueue_script(
         'presenpress-js',
-        PRESENPRESS_URL.'/js/presenpress.js',
-        array('reveal-js', 'jquery-leapmotion'),
-        self::reveal_version,
-        filemtime(dirname(__FILE__).'/js/presenpress.js')
+        PRESENPRESS_URL.'/js/presenpress.min.js',
+        array('reveal-js', 'jquery'),
+        self::presenpress_version,
+        true
     );
 }
 

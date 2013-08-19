@@ -1,0 +1,31 @@
+{
+  "name": "PresenPress",
+  "version": "0.1.0",
+  "description": "Presentation plugin for WordPress",
+  "main": "gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/miya0001/presenpress.git"
+  },
+  "author": {
+    "name": "Takayuki Miyauchi",
+    "url": "http://twitter.com/miya0001"
+  },
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/miya0001/presenpress/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2"
+  },
+  "dependencies": {
+    "jquery": ">= 1.8.3",
+    "leapjs": "0.2.0",
+    "jquery-leapmotion": "*"
+  }
+}

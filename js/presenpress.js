@@ -10,7 +10,7 @@
         progress: true,
         history: options.history,
         center: true,
-        transition: options.transition,
+        transition: options.transition/*,
         dependencies: [
             { src: presenpress_url + '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
             { src: presenpress_url + '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
@@ -18,7 +18,7 @@
             { src: presenpress_url + '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
             { src: presenpress_url + '/reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
             { src: presenpress_url + '/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-        ]
+        ]*/
     });
 
     var lock_gesture = false;
