@@ -146,23 +146,7 @@ public function presenpress_enqueue_scripts()
             self::presenpress_version
         )
     );
-/*
-    wp_enqueue_script(
-        'leapjs',
-        '//js.leapmotion.com/0.2.0/leap.min.js',
-        array('jquery'),
-        '0.2.0',
-        true
-    );
 
-    wp_enqueue_script(
-        'jquery-leapmotion',
-        '//jqueryleapmotion.s3.amazonaws.com/jquery.leapmotion.min.js',
-        array('leapjs'),
-        false,
-        true
-    );
-*/
     wp_enqueue_script(
         'reveal-js',
         PRESENPRESS_URL.'/js/reveal-package.min.js',
@@ -170,15 +154,7 @@ public function presenpress_enqueue_scripts()
         self::reveal_version,
         true
     );
-/*
-    wp_enqueue_script(
-        'reveal-js',
-        PRESENPRESS_URL.'/reveal/js/reveal.min.js',
-        array('reveal-head-js'),
-        self::reveal_version,
-        true
-    );
-*/
+
     wp_enqueue_script(
         'presenpress-js',
         PRESENPRESS_URL.'/js/presenpress.min.js',
@@ -366,6 +342,7 @@ public function meta_box_styles($post, $metabox)
         $style = "/*
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6
 {
+    font-family: sans-serif;
     text-transform: none;
 }
 */";
