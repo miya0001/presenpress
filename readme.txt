@@ -10,7 +10,7 @@ Presentation with WordPress + Leap Motion.
 
 == Description ==
 
-This plugin allows you to craete presentation by reveal.js.
+This plugin allows you to craete presentation with reveal.js.
 These presentations are able to control by gestures of the Leap Motion.
 
 = Supported Gestures =
