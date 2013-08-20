@@ -30,7 +30,7 @@ These presentations are able to control by gestures of the Leap Motion.
 = How to create presentation =
 
 * Click Add New link in Presenation on the WordPress admin menu.
-* If you want to add next slide, please place <!--nextpage--> tags in the editor.
+* If you want to add next slide, please place <!--nextpage--> tag in the editor.
 
 == Installation ==
 
@@ -45,8 +45,4 @@ These presentations are able to control by gestures of the Leap Motion.
 3. Pointer.
 4. Highlighted pointer.
 
-== Credits ==
-
-This plug-in is not guaranteed though the user of WordPress can freely use this plug-in free of charge regardless of the purpose.
-The author must acknowledge the thing that the operation guarantee and the support in this plug-in use are not done at all beforehand.
 
