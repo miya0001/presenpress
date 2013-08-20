@@ -26,6 +26,7 @@ These presentations are able to control by gestures of the Leap Motion.
 * Custom style sheet support.
 * Some themes alredy included.
 * cube, page, linear and other transition support.
+* Convert gallery shortcode to slide automatically.
 
 = How to create presentation =
 

@@ -51,6 +51,42 @@ public function plugins_loaded()
     add_action('wp_head', array($this, 'wp_head'));
     add_action('save_post', array($this, 'save_post'));
     add_action('admin_head', array($this, 'admin_head'));
+    add_filter('post_gallery', array($this, 'post_gallery'), 10, 2);
+}
+
+public function post_gallery($content, $atts)
+{
+    if (!$this->is_presen()) {
+        return;
+    }
+
+    extract(shortcode_atts(array(
+        'orderby' => 'menu_order title',
+        'order' => 'ASC',
+        'size' => 'large',
+        'link' => 'none',
+        'columns' => 1,
+    ), $atts));
+
+    $attachments = get_posts(array(
+        'include' => $atts['ids'],
+        'post_status' => 'inherit',
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'order' => $order,
+        'orderby' => $orderby
+    ));
+
+    $slides = array();
+    foreach ($attachments as $attachment) {
+        $img = wp_get_attachment_image_src($attachment->ID, $size);
+        $slides[] = sprintf(
+            '<section><img src="%s" alt=""></section>',
+            $img[0]
+        );
+    }
+
+    return join("\n", $slides);
 }
 
 public function admin_head()
@@ -69,8 +105,10 @@ EOL;
 public function wp_head()
 {
     if (!$this->is_presen()) {
-        return false;
+        return;
     }
+
+    add_filter('use_default_gallery_style', '__return_false');
 
     global $wp_query;
 
@@ -98,7 +136,7 @@ public function wp_head()
 public function wp_enqueue_scripts()
 {
     if (!$this->is_presen()) {
-        return false;
+        return;
     }
 
     wp_enqueue_style(
