@@ -7,8 +7,6 @@
 
         <title><?php the_title(); ?></title>
 
-        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -21,7 +19,6 @@
 
         <div class="reveal">
 
-            <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
                 <?php while(have_posts()): the_post(); ?>
                     <?php global $numpages; ?>
