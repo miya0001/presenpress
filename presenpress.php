@@ -98,14 +98,26 @@ public function post_gallery($content, $atts)
         'columns' => 1,
     ), $atts));
 
-    $attachments = get_posts(array(
-        'include' => $atts['ids'],
-        'post_status' => 'inherit',
-        'post_type' => 'attachment',
-        'post_mime_type' => 'image',
-        'order' => $order,
-        'orderby' => $orderby
-    ));
+    if (isset($atts['ids']) && intval($atts['ids'])) {
+        $attachments = get_posts(array(
+            'include' => $atts['ids'],
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'order' => $order,
+            'orderby' => $orderby
+        ));
+    } else {
+        $attachments = get_posts(array(
+            'post_parent' => get_the_ID(),
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'order' => $order,
+            'orderby' => $orderby,
+            'nopaging' => true,
+        ));
+    }
 
     $slides = array();
     foreach ($attachments as $attachment) {
