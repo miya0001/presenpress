@@ -12,7 +12,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <?php do_action('presenpress_head'); ?>
+        <?php wp_head(); ?>
     </head>
 
     <body>
@@ -22,18 +22,22 @@
             <div class="slides">
                 <?php while(have_posts()): the_post(); ?>
                     <?php global $numpages; ?>
-                    <?php for ($i = 1; $i <= $numpages; $i++ ): ?>
-                        <section>
-                            <?php global $page; $page = $i; ?>
-                            <?php the_content(); ?>
-                        </section>
-                    <?php endfor; ?>
+                    <?php if ($numpages > 1): ?>
+                        <?php for ($i = 1; $i <= $numpages; $i++ ): ?>
+                            <section>
+                                <?php global $page; $page = $i; ?>
+                                <?php the_content(); ?>
+                            </section>
+                        <?php endfor; ?>
+                    <?php else: ?>
+                        <?php the_content(); ?>
+                    <?php endif; ?>
                 <?php endwhile; ?>
             </div>
 
         </div>
 
-        <?php do_action('presenpress_footer'); ?>
+        <?php wp_footer(); ?>
 
         <div id="presenpress-cursor"></div>
         <div id="presenpress-highlight"></div>

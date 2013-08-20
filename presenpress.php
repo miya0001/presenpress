@@ -40,10 +40,8 @@ public function plugins_loaded()
 {
     add_action('init', array($this, 'init'));
     add_action('template_redirect', array($this, 'template_redirect'));
-    add_action('presenpress_enqueue_scripts', array($this, 'presenpress_enqueue_scripts'));
-    add_action('presenpress_head', array($this, 'presenpress_head'));
-    add_action('presenpress_footer', array($this, 'presenpress_footer'));
-    add_action('wp', array($this, 'wp'), 9999);
+    add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
+    add_action('wp_head', array($this, 'wp_head'));
     add_action('save_post', array($this, 'save_post'));
     add_action('admin_head', array($this, 'admin_head'));
 }
@@ -61,26 +59,13 @@ public function admin_head()
 EOL;
 }
 
-public function wp()
+public function wp_head()
 {
-    if ($this->is_presen()) {
-        add_filter('show_admin_bar', '__return_false');
+    if (!$this->is_presen()) {
+        return false;
     }
-}
 
-public function presenpress_footer()
-{
-    wp_print_footer_scripts();
-}
-
-public function presenpress_head()
-{
     global $wp_query;
-
-    do_action('presenpress_enqueue_scripts');
-
-    wp_print_styles();
-    wp_print_head_scripts();
 
 ?>
         <script>
@@ -103,8 +88,12 @@ public function presenpress_head()
     }
 }
 
-public function presenpress_enqueue_scripts()
+public function wp_enqueue_scripts()
 {
+    if (!$this->is_presen()) {
+        return false;
+    }
+
     wp_enqueue_style(
         'reveal',
         PRESENPRESS_URL.'/reveal/css/reveal.min.css',
@@ -390,13 +379,6 @@ public function template_redirect()
         require_once(dirname(__FILE__).'/includes/app.php');
         exit;
     }
-}
-
-private function send_404()
-{
-    $wp_query->set_404();
-    status_header(404);
-    return;
 }
 
 private function is_presen()
