@@ -49,9 +49,39 @@ public function plugins_loaded()
     add_action('template_redirect', array($this, 'template_redirect'));
     add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
     add_action('wp_head', array($this, 'wp_head'));
+    add_action('wp_footer', array($this, 'wp_footer'));
     add_action('save_post', array($this, 'save_post'));
     add_action('admin_head', array($this, 'admin_head'));
     add_filter('post_gallery', array($this, 'post_gallery'), 10, 2);
+}
+
+public function wp_footer()
+{
+    if (!$this->is_presen()) {
+        return;
+    }
+
+    global $wp_query;
+?>
+        <div id="social-buttons">
+            <div class="share">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="miya0001" data-lang="ja">ツイート</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            <div class="share">
+                <div class="fb-like" data-href="<?php echo get_permalink($wp_query->post->ID); ?>" data-width="450" data-colorscheme="dark" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+            </div>
+        </div>
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+<?php
 }
 
 public function post_gallery($content, $atts)
@@ -81,8 +111,9 @@ public function post_gallery($content, $atts)
     foreach ($attachments as $attachment) {
         $img = wp_get_attachment_image_src($attachment->ID, $size);
         $slides[] = sprintf(
-            '<section><img src="%s" alt=""></section>',
-            $img[0]
+            '<section><img src="%s" alt="%s"></section>',
+            $img[0],
+            get_post_meta($attachment->ID, '_wp_attachment_image_alt', true)
         );
     }
 

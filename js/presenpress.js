@@ -1,7 +1,7 @@
 (function($){
     var defaults = {
         width: 960,
-        height: 700,
+        height: 720,
         history: true,
         transition: 'default'
     };
