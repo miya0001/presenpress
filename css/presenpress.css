@@ -34,7 +34,7 @@
 {
     display: block;
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     left: 20px;
     overflow: auto;
     z-index: 9999;
