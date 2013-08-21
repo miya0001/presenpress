@@ -34,6 +34,17 @@ const presenpress_version = '0.1.0';
 const reveal_version = '2.4.0';
 const post_type = 'presenpress';
 
+private $default_themes = array(
+    'default',
+    'beige',
+    'moon',
+    'night',
+    'serif',
+    'simple',
+    'sky',
+    'solarized',
+);
+
 function __construct()
 {
 }
@@ -189,19 +200,13 @@ public function wp_enqueue_scripts()
         self::reveal_version
     );
 
-    global $wp_query;
-    $theme_css = PRESENPRESS_URL.'/reveal/css/theme/default.css';
-    if ($theme = get_post_meta($wp_query->post->ID, '_presenpress_theme', true)) {
-        if (preg_match('/^[a-zA-Z0-9]+$/', $theme)) {
-            $theme_css = PRESENPRESS_URL.'/reveal/css/theme/'.$theme.'.css';
-        }
-    }
+    $theme = $this->get_theme();
 
     wp_enqueue_style(
         'reveal-theme',
-        $theme_css,
+        $theme['url'],
         array('reveal'),
-        self::reveal_version
+        $theme['version']
     );
 
     wp_enqueue_style(
@@ -234,9 +239,15 @@ public function wp_enqueue_scripts()
 
     wp_enqueue_script(
         'presenpress-js',
-        PRESENPRESS_URL.'/js/presenpress.min.js',
+        apply_filters(
+            'presenpress_script_url',
+            PRESENPRESS_URL.'/js/presenpress.min.js'
+        ),
         array('reveal-js', 'jquery'),
-        self::presenpress_version,
+        apply_filters(
+            'presenpress_script_version',
+            self::presenpress_version
+        ),
         true
     );
 }
@@ -317,38 +328,24 @@ public function meta_box_settings($post, $metabox)
 
     $theme = get_post_meta($post->ID, '_presenpress_theme', true);
 
-    $themes = array();
-    $dir = dirname(__FILE__).'/reveal/css/theme';
-    if (is_dir($dir)) {
-        if ($dh = opendir($dir)) {
-            while (($file = readdir($dh)) !== false) {
-                if (preg_match('/\.css$/', $file)) {
-                    $themes[] = $file;
-                }
-            }
-        }
-    }
+    $themes = $this->get_themes();
 
     echo '<tr>';
     echo '<th style="text-align: left; font-weight: normal;">Theme:</th>';
     echo '<td>';
     echo "<select name=\"presenpress_theme\">";
-    echo '<option value="default">Default</option>';
-    foreach ($themes as $t) {
-        $option = preg_replace('/\.css$/', '', $t);
-        if ($option !== 'default') {
-            if ($option === $theme) {
-                $selected = 'selected="selected"';
-            } else {
-                $selected = '';
-            }
-            printf(
-                '<option value="%s" %s>%s</option>',
-                esc_attr($option),
-                $selected,
-                esc_html(ucwords($option))
-            );
+    foreach ($themes as $t => $tvalue) {
+        if ($t === $theme) {
+            $selected = 'selected="selected"';
+        } else {
+            $selected = '';
         }
+        printf(
+            '<option value="%s" %s>%s</option>',
+            esc_attr($t),
+            $selected,
+            esc_html(ucwords($t))
+        );
     }
     echo "</select>";
     echo '</td>';
@@ -469,6 +466,40 @@ public function template_redirect()
     }
 }
 
+private function get_themes()
+{
+    $themes = array();
+    foreach ($this->default_themes as $theme) {
+        $themes[$theme] = array(
+            'url' => plugins_url(
+                'reveal/css/theme/'.$theme.'.css',
+                __FILE__
+            ),
+            'version' => self::reveal_version
+        );
+    }
+
+    $themes = apply_filters(
+        'presenpress_themes',
+        $themes
+    );
+
+    return $themes;
+}
+
+private function get_theme()
+{
+    global $wp_query;
+    $theme = get_post_meta($wp_query->post->ID, '_presenpress_theme', true);
+
+    $themes = $this->get_themes();
+    if (isset($themes[$theme]) && $themes[$theme]) {
+        return $themes[$theme];
+    } else {
+        return $themes['default'];
+    }
+}
+
 private function is_presen()
 {
     if (self::post_type === get_post_type()) {
@@ -479,5 +510,6 @@ private function is_presen()
 }
 
 } // end class
+
 
 // EOF

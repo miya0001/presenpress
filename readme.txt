@@ -10,8 +10,18 @@ Presentation with WordPress + Leap Motion.
 
 == Description ==
 
-This plugin allows you to craete presentation.
-These presentations are able to control by gestures of the Leap Motion.
+* This plugin allows you to craete presentation.
+* You are able to control these presentations by gestures of the Leap Motion.
+
+[This Plugin published on GitHub.](https://github.com/miya0001/wp-total-hacks)
+
+= Some Feature =
+
+* Allow you to create mutiple presentation.
+* Custom style sheet support.
+* Some themes alredy included.
+* cube, page, linear and other transition support.
+* Convert gallery shortcode to the presentation automatically.
 
 = Supported Gestures =
 
@@ -20,18 +30,28 @@ These presentations are able to control by gestures of the Leap Motion.
 * point - normal pointer
 * touch - Highlighted pointer
 
-= Some Feature =
-
-* Allow you to create mutiple presentation.
-* Custom style sheet support.
-* Some themes alredy included.
-* cube, page, linear and other transition support.
-* Convert gallery shortcode to slide automatically.
-
 = How to create presentation =
 
 * Click Add New link in Presenation on the WordPress admin menu.
 * If you want to add next slide, please place <!--nextpage--> tag in the editor.
+
+= How to add your custom theme =
+
+* Create your theme CSS. See [documentation](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md).
+* Please place the code like following in your functions.php or your custom plugin.
+
+`<?php 
+
+add_filter('presenpress_themes', function($themes){
+
+    $themes['your_theme_name'] = array(
+        'url' => 'http://example.com/your_theme.css',
+        'version' => '1.0.0'
+    );
+
+    return $themes;
+});
+`
 
 == Installation ==
 
