@@ -41,9 +41,10 @@ These presentations are able to control by gestures of the Leap Motion.
 
 == Screenshots ==
 
-1. Visual Editor.
-2. Presentation Settings.
-3. Pointer.
-4. Highlighted pointer.
+1. Visual Editor
+2. Presentation Settings
+3. Presentation Example
+4. Pointer
+5. Highlighted pointer
 
 
