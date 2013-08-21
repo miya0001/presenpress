@@ -22,7 +22,7 @@ These presentations are able to control by gestures of the Leap Motion.
 
 = Some Feature =
 
-* Allow you to create mutiple presentation via custom post type.
+* Allow you to create mutiple presentation.
 * Custom style sheet support.
 * Some themes alredy included.
 * cube, page, linear and other transition support.
