@@ -76,7 +76,7 @@ public function wp_footer()
 ?>
         <div id="social-buttons">
             <div class="share">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-via="miya0001" data-lang="ja">ツイート</a>
+                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             </div>
             <div class="share">
@@ -89,7 +89,7 @@ public function wp_footer()
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1";
+            js.src = "//connect.facebook.net/en/all.js#xfbml=1";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 <?php
