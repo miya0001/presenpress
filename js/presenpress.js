@@ -36,6 +36,8 @@
         get_links();
     });
 
+    $('section').addClass('content-bootstrap-area');
+
     function get_links(){
         links = [];
         $('section.present a').each(function(){

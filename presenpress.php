@@ -69,10 +69,7 @@ public function plugins_loaded()
 
 public function presenpress_content($content)
 {
-    return sprintf(
-        '<div class="content-bootstrap-area">%s</div>',
-        wpautop(do_shortcode($content))
-    );
+    return wpautop(do_shortcode($content));
 }
 
 public function wp_footer()
