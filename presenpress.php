@@ -63,7 +63,7 @@ public function plugins_loaded()
     add_action('wp_footer', array($this, 'wp_footer'));
     add_action('save_post', array($this, 'save_post'));
     add_action('admin_head', array($this, 'admin_head'));
-    add_filter('post_gallery', array($this, 'post_gallery'), 10, 2);
+    add_filter('post_gallery', array($this, 'post_gallery'), 9999, 2);
 }
 
 public function wp_footer()
