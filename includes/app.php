@@ -26,11 +26,11 @@
                         <?php for ($i = 1; $i <= $numpages; $i++ ): ?>
                             <section>
                                 <?php global $page; $page = $i; ?>
-                                <?php echo do_shortcode(get_the_content()); ?>
+                                <?php echo apply_filters('presenpress_content', get_the_content()); ?>
                             </section>
                         <?php endfor; ?>
                     <?php else: ?>
-                        <?php echo do_shortcode(get_the_content()); ?>
+                        <?php echo apply_filters('presenpress_content', get_the_content()); ?>
                     <?php endif; ?>
                 <?php endwhile; ?>
             </div>
