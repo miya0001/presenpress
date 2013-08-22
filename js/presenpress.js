@@ -1,4 +1,5 @@
 (function($){
+
     var defaults = {
         width: 960,
         height: 720,
@@ -6,6 +7,8 @@
         transition: 'default'
     };
     var options = $.extend(defaults, presentation_settings);
+    var links = [];
+    var target_link;
 
     Reveal.initialize({
         width: options.width,
@@ -24,6 +27,38 @@
             { src: presenpress_url + '/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
         ]
     });
+
+    Reveal.addEventListener('ready', function(){
+        get_links();
+    });
+
+    Reveal.addEventListener('slidechanged', function(){
+        get_links();
+    });
+
+    function get_links(){
+        links = [];
+        $('section.present a').each(function(){
+            links[links.length] = this;
+        });
+    }
+
+    function is_air_hover(pos){
+        $(links).each(function(){
+            var offset = $(this).offset();
+            if (pos.top > offset.top && pos.left > offset.left) {
+                if (pos.top < (offset.top + $(this).height())) {
+                    if (pos.left < (offset.left + $(this).width())) {
+                        $('#presenpress-cursor').addClass('wait');
+                        target_link = this;
+                        return false;
+                    }
+                }
+            }
+            $('#presenpress-cursor').removeClass('wait');
+            target_link = false;
+        });
+    }
 
     var lock_gesture = false;
     $.leapmotion();
@@ -47,19 +82,24 @@
         $('#presenpress-cursor').hide();
         $('#presenpress-highlight').hide();
     }).bind('pointables', function(e, frame){
+        var pos = frame.pointerOffset();
+        is_air_hover(pos[0]);
         if (frame.pointables[0].touchZone === 'touching') {
-            var pos = frame.pointerOffset();
-            var h = $('#presenpress-highlight').height();
-            var w = $('#presenpress-highlight').width();
-            $('#presenpress-cursor').fadeOut();
-            $('#presenpress-highlight').fadeIn();
-            $('#presenpress-highlight').css({
-                top: pos[0].top - (h / 2),
-                left: pos[0].left - (w / 2)
-            });
+            if (target_link) {
+                location.href = $(target_link).attr('href');
+                target_link = false;
+            } else {
+                var h = $('#presenpress-highlight').height();
+                var w = $('#presenpress-highlight').width();
+                $('#presenpress-cursor').fadeOut();
+                $('#presenpress-highlight').fadeIn();
+                $('#presenpress-highlight').css({
+                    top: pos[0].top - (h / 2),
+                    left: pos[0].left - (w / 2)
+                });
+            }
         } else {
             $('#presenpress-cursor').show();
-            var pos = frame.pointerOffset();
             var h = $('#presenpress-cursor').height();
             var w = $('#presenpress-cursor').width();
             $('#presenpress-cursor').css({
@@ -72,4 +112,5 @@
         $('#presenpress-cursor').fadeOut();
         $('#presenpress-highlight').fadeOut();
     });
+
 })(jQuery)
