@@ -19,7 +19,7 @@
 
         <div class="reveal">
 
-            <div id="content-bootstrap-area" class="slides">
+            <div class="slides">
                 <?php while(have_posts()): the_post(); ?>
                     <?php global $numpages; ?>
                     <?php if ($numpages > 1): ?>
