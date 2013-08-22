@@ -2,16 +2,12 @@
 {
     position: fixed;
     z-index: 99999;
-    /*background-image: url(../img/cursor.png);
-    background-position: center center;
-    background-repeat: no-repeat;*/
     width: 20px;
     height: 20px;
     opacity: 0.5;
     display: none;
     border-radius: 20px;
     border: 5px solid #ff8000;
-    background-color: #cccccc;
     box-sizing: border-box;
 }
 
@@ -21,17 +17,17 @@
     background-color: #ff0000;
 }
 
-#presenpress-highlight
+#presenpress-cursor.highlight
 {
     position: fixed;
-    width: 3000px;
-    height: 3000px;
-    background-image: url(../img/highlight.png);
+    width: 6000px;
+    height: 6000px;
+    border: none;
+    background-image: url(../img/highlight.png?ver=20130822);
     background-color: transparent important!;
     background-position: center center;
     background-repeat: no-repeat;
-    z-index: 99999;
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 #social-buttons
