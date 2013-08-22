@@ -30,7 +30,7 @@
                             </section>
                         <?php endfor; ?>
                     <?php else: ?>
-                        <?php echo apply_filters('presenpress_content', get_the_content()); ?>
+                        <?php echo wpautop(do_shortcode(get_the_content())); ?>
                     <?php endif; ?>
                 <?php endwhile; ?>
             </div>
