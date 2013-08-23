@@ -64,12 +64,22 @@ public function plugins_loaded()
     add_action('save_post', array($this, 'save_post'));
     add_action('admin_head', array($this, 'admin_head'));
     add_filter('post_gallery', array($this, 'post_gallery'), 9999, 2);
-    add_filter('presenpress_content', array($this, 'presenpress_content'));
+
+    global $wp_embed;
+    add_filter('presenpress_content', array($wp_embed, 'run_shortcode'), 8);
+	add_filter('presenpress_content', array( $wp_embed, 'autoembed'), 8);
+    add_filter('presenpress_content', array($this, 'presenpress_content'), 11);
+    add_filter('presenpress_content', 'wptexturize'        );
+    add_filter('presenpress_content', 'convert_smilies'    );
+    add_filter('presenpress_content', 'convert_chars'      );
+    add_filter('presenpress_content', 'wpautop'            );
+    add_filter('presenpress_content', 'shortcode_unautop'  );
+    add_filter('presenpress_content', 'prepend_attachment' );
 }
 
 public function presenpress_content($content)
 {
-    return wpautop(do_shortcode($content));
+    return do_shortcode($content);
 }
 
 public function wp_footer()
@@ -206,7 +216,7 @@ public function wp_enqueue_scripts()
         self::reveal_version
     );
 
-    $theme = $this->get_theme();
+    $theme = $this->get_slide_theme();
 
     wp_enqueue_style(
         'reveal-theme',
@@ -334,7 +344,7 @@ public function meta_box_settings($post, $metabox)
 
     $theme = get_post_meta($post->ID, '_presenpress_theme', true);
 
-    $themes = $this->get_themes();
+    $themes = $this->get_reveal_themes();
 
     echo '<tr>';
     echo '<th style="text-align: left; font-weight: normal;">Theme:</th>';
@@ -472,7 +482,7 @@ public function template_redirect()
     }
 }
 
-private function get_themes()
+private function get_reveal_themes()
 {
     $themes = array();
     foreach ($this->default_themes as $theme) {
@@ -493,12 +503,12 @@ private function get_themes()
     return $themes;
 }
 
-private function get_theme()
+private function get_slide_theme()
 {
     global $wp_query;
     $theme = get_post_meta($wp_query->post->ID, '_presenpress_theme', true);
 
-    $themes = $this->get_themes();
+    $themes = $this->get_reveal_themes();
     if (isset($themes[$theme]) && $themes[$theme]) {
         return $themes[$theme];
     } else {
