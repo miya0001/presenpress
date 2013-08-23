@@ -21,6 +21,8 @@ register_activation_hook(__FILE__, 'presenpress_activation');
 register_deactivation_hook(__FILE__, 'presenpress_deactivation');
 
 function presenpress_activation(){
+    $presenpress = new PresenPress();
+    $presenpress->init();
     flush_rewrite_rules();
 }
 
@@ -270,6 +272,19 @@ public function wp_enqueue_scripts()
 
 public function init()
 {
+    if (is_admin()) {
+        global $pagenow;
+        if ($pagenow === 'plugins.php') {
+            if (isset($_GET['plugin']) && isset($_GET['action'])) {
+                if (basename(__FILE__) === basename($_GET['plugin'])) {
+                    if ($_GET['action'] === 'deactivate') {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     $args = array(
         'label' => __('Presentations', 'presenpress'),
         'labels' => array(
@@ -311,7 +326,7 @@ public function init()
 
     register_post_type(
         self::post_type,
-        apply_filters('presenpress_register_post_type_args', $args)
+        $args
     );
 
 }
