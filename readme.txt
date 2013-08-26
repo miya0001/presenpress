@@ -41,7 +41,7 @@ Presentation with WordPress + Leap Motion.
 * Create your theme CSS. See [documentation](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md).
 * Please place the code like following in your functions.php or your custom plugin.
 
-`<?php 
+`<?php
 
 add_filter('presenpress_themes', function($themes){
 
