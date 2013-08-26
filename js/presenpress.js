@@ -18,6 +18,7 @@
         history: options.history,
         center: true,
         transition: options.transition,
+
         dependencies: [
             { src: presenpress_url + '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
             { src: presenpress_url + '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },

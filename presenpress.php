@@ -33,7 +33,7 @@ function presenpress_deactivation(){
 class PresenPress {
 
 const presenpress_version = '0.1.0';
-const reveal_version = '2.4.0';
+const reveal_version = '2.5.0';
 const post_type = 'presenpress';
 
 private $default_themes = array(
