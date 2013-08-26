@@ -12,7 +12,7 @@ Presentation with WordPress + Leap Motion.
 
 * This plugin allows you to craete presentation.
 * You are able to control these presentations by gestures of the Leap Motion.
-* Transition and themes are supported by [reveal.js](https://github.com/hakimel/reveal.js/).
+* JavaScript for slide are supported by [reveal.js](https://github.com/hakimel/reveal.js/).
 
 [This Plugin published on GitHub.](https://github.com/miya0001/presenpress)
 
