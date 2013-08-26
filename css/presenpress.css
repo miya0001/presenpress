@@ -7,8 +7,9 @@
     opacity: 0.5;
     display: none;
     border-radius: 20px;
-    border: 5px solid #ff8800;
+    border: 5px solid #ff3300;
     box-sizing: border-box;
+    background: none;
 }
 
 #presenpress-cursor.wait
@@ -23,8 +24,6 @@
     width: 6000px;
     height: 6000px;
     border: none;
-    background: -moz-radial-gradient(center center, circle, transparent 90px, #000000 100px);
-    background: -webkit-gradient(radial, center center, 90, center center, 100, from(transparent), to(#000000));
     opacity: 0.8;
 }
 

@@ -4,7 +4,7 @@ Donate link: http://wpist.me/
 Tags: presentation, leapmotion, reveal.js
 Requires at least: 3.6
 Tested up to: 3.5
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 
 Presentation with WordPress + Leap Motion.
 

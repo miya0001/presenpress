@@ -4,7 +4,8 @@
         width: 960,
         height: 720,
         history: true,
-        transition: 'default'
+        transition: 'default',
+        icon_min: 50
     };
     var options = $.extend(defaults, presentation_settings);
     var links = [];
@@ -89,7 +90,7 @@
     }).bind('pointables', function(e, frame){
         var pos = frame.pointerOffset();
         is_air_hover(pos[0]);
-        if (frame.pointables[0].touchZone === 'touching') {
+        if (frame.pointables[0].touchZone === 'touching' && frame.pointables[0].stabilizedTipPosition[2] < 0) {
             if (target_link && !$('#presenpress-cursor').hasClass('highlight')) {
                 location.href = $(target_link).attr('href');
                 target_link = false;
@@ -111,9 +112,28 @@
                 left: pos[0].left - (w / 2)
             });
         }
+        if ($('#presenpress-cursor').hasClass('highlight')) {
+            if (frame.pointables[0].stabilizedTipPosition[2] < 0) {
+                var size = Math.round(options.icon_min + Math.abs(frame.pointables[0].stabilizedTipPosition[2]) * 2);
+                add_gradient(size);
+            } else {
+                add_gradient(options.icon_min);
+            }
+        }
     }).bind('pointablesout', function(e, frame){
         $('#presenpress-cursor').fadeOut();
         $('#presenpress-cursor').removeClass('highlight');
     });
 
+    function add_gradient(size){
+        var from_size = size * 0.9;
+        $('#presenpress-cursor').css(
+            "background",
+            "-webkit-gradient(radial, center center, "+from_size+", center center, "+size+", from(transparent), to(#000000))"
+        );
+        $('#presenpress-cursor').css(
+            "background",
+            "-moz-radial-gradient(center center, circle, transparent 90px, #000000 100px)"
+        );
+    }
 })(jQuery)
