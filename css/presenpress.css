@@ -23,10 +23,8 @@
     width: 6000px;
     height: 6000px;
     border: none;
-    background-image: url(../img/highlight.png?ver=20130822);
-    background-color: transparent important!;
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: -moz-radial-gradient(center center, circle, transparent 90px, #000000 100px);
+    background: -webkit-gradient(radial, center center, 90, center center, 100, from(transparent), to(#000000));
     opacity: 0.8;
 }
 

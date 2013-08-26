@@ -14,7 +14,7 @@ Presentation with WordPress + Leap Motion.
 * You are able to control these presentations by gestures of the Leap Motion.
 * Transition and themes are supported by [reveal.js](https://github.com/hakimel/reveal.js/).
 
-[This Plugin published on GitHub.](https://github.com/miya0001/wp-total-hacks)
+[This Plugin published on GitHub.](https://github.com/miya0001/presenpress)
 
 = Some Feature =
 
@@ -34,7 +34,7 @@ Presentation with WordPress + Leap Motion.
 = How to create presentation =
 
 * Click Add New link in Presenation on the WordPress admin menu.
-* If you want to add next slide, please place <!--nextpage--> tag in the editor.
+* If you want to add next slide, please place &lt;!--nextpage--&gt; tag in the editor.
 
 = How to add your custom theme =
 
