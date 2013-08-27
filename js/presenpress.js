@@ -133,7 +133,7 @@
         );
         $('#presenpress-cursor').css(
             "background",
-            "-moz-radial-gradient(center center, circle, transparent 90px, #000000 100px)"
+            "-moz-radial-gradient(center center, circle, transparent "+from_size+"px, #000000 "+size+"px)"
         );
     }
 })(jQuery)
