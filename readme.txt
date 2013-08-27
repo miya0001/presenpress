@@ -4,11 +4,13 @@ Donate link: http://wpist.me/
 Tags: presentation, leapmotion, reveal.js
 Requires at least: 3.6
 Tested up to: 3.5
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 
 Presentation with WordPress + Leap Motion.
 
 == Description ==
+
+http://www.youtube.com/watch?v=lZrNsrq18xk
 
 * This plugin allows you to craete presentation.
 * You are able to control these presentations by gestures of the Leap Motion.
