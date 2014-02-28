@@ -4,7 +4,7 @@ Plugin Name: PresenPress
 Author: Takayuki Miyauchi
 Plugin URI: http://wpist.me/
 Description: Presentation with WordPress + Leap Motion.
-Version: 0.2.2
+Version: 0.2.3
 Author URI: http://wpist.me/
 Domain Path: /languages
 Text Domain: presenpress
@@ -28,7 +28,7 @@ function presenpress_activation(){
 }
 
 function presenpress_deactivation(){
-    update_option('presenpress_activated', true);
+    delete_option('presenpress_activated');
     flush_rewrite_rules();
 }
 
@@ -86,7 +86,7 @@ public function plugins_loaded()
     add_filter('presenpress_content', 'wpautop'            );
     add_filter('presenpress_content', 'shortcode_unautop'  );
     add_filter('presenpress_content', 'prepend_attachment' );
-    add_action('delete_option', 'delete_option', 10, 1);
+    add_action('delete_option', array(&$this, 'delete_option'), 10, 1);
 
     load_plugin_textdomain(
         'presenpress',
@@ -95,7 +95,7 @@ public function plugins_loaded()
     );
 }
 
-public function my_delete_option($option){
+public function delete_option($option){
     if ('rewrite_rules' === $option && get_option('presenpress_activated')) {
         $this->init();
     }
@@ -294,19 +294,6 @@ public function wp_enqueue_scripts()
 
 public function init()
 {
-    if (is_admin()) {
-        global $pagenow;
-        if ($pagenow === 'plugins.php') {
-            if (isset($_GET['plugin']) && isset($_GET['action'])) {
-                if (basename(__FILE__) === basename($_GET['plugin'])) {
-                    if ($_GET['action'] === 'deactivate') {
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
     $args = array(
         'label' => __('Presentations', 'presenpress'),
         'labels' => array(
