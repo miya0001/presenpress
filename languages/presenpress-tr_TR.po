@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PresenPress\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/presenpress\n"
+"POT-Creation-Date: 2014-02-28 15:03:34+00:00\n"
+"PO-Revision-Date: 2014-02-28 14:56+0200\n"
+"Last-Translator: Serkan Algur <info@wpadami.com>\n"
+"Language-Team: Serkan Algur <info@wpadami.com>\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ../..\n"
+
+#: presenpress.php:302
+msgid "Presentations"
+msgstr "Sunumlar"
+
+#: presenpress.php:304
+msgid "Presentation"
+msgstr "Sunum"
+
+#: presenpress.php:305
+msgid "Add New Presentation"
+msgstr "Yeni Sunum Ekle"
+
+#: presenpress.php:306
+msgid "Edit Presentation"
+msgstr "Sunum Düzenle"
+
+#: presenpress.php:307
+msgid "Add New"
+msgstr "Yeni Ekle"
+
+#: presenpress.php:308
+msgid "New Presentation"
+msgstr "Yeni Sunum"
+
+#: presenpress.php:309
+msgid "View Presentation"
+msgstr "Sunumu Görüntüle"
+
+#: presenpress.php:310
+msgid "No Presentations found."
+msgstr "Sunum Bulunamadı"
+
+#: presenpress.php:311
+msgid "No Presentations found in Trash."
+msgstr "Çöpte Sunum Bulunamadı."
+
+#: presenpress.php:315
+msgid "Search Presentations"
+msgstr "Sunumlarda Ara"
+
+#: presenpress.php:351
+msgid "Presentation Settings"
+msgstr "Sunum Seçenekleri"
+
+#: presenpress.php:360
+msgid "Presentation Styles"
+msgstr "Sunum Şablonları"
+
+#: presenpress.php:369
+msgid "Translators"
+msgstr "Çevirenler"
+
+#. Plugin Name of the plugin/theme
+msgid "PresenPress"
+msgstr ""
+
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://wpist.me/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Presentation with WordPress + Leap Motion."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Takayuki Miyauchi"
+msgstr ""

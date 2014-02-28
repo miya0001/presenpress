@@ -4,7 +4,7 @@ Plugin Name: PresenPress
 Author: Takayuki Miyauchi
 Plugin URI: http://wpist.me/
 Description: Presentation with WordPress + Leap Motion.
-Version: 0.2.1
+Version: 0.2.2
 Author URI: http://wpist.me/
 Domain Path: /languages
 Text Domain: presenpress
@@ -35,6 +35,13 @@ class PresenPress {
 const presenpress_version = '0.2.1';
 const reveal_version = '2.5.0';
 const post_type = 'presenpress';
+
+private $translators = array(
+    'Serkan Algur' => array(
+        'lang' => 'Turkish',
+        'url' => 'http://www.kaisercrazy.com/',
+    ),
+);
 
 private $default_themes = array(
     'default',
@@ -77,6 +84,12 @@ public function plugins_loaded()
     add_filter('presenpress_content', 'wpautop'            );
     add_filter('presenpress_content', 'shortcode_unautop'  );
     add_filter('presenpress_content', 'prepend_attachment' );
+
+    load_plugin_textdomain(
+        'presenpress',
+        false,
+        dirname(plugin_basename(__FILE__)).'/languages'
+    );
 }
 
 public function presenpress_content($content)
@@ -350,6 +363,29 @@ public function register_meta_box_cb()
         'normal',
         'low'
     );
+
+    add_meta_box(
+        'presenpress-translators',
+        __('Translators', 'presenpress'),
+        array($this, 'meta_box_translators'),
+        self::post_type,
+        'side',
+        'low'
+    );
+}
+
+public function meta_box_translators($post, $metabox)
+{
+    echo '<ul>';
+    foreach ($this->translators as $name => $meta) {
+        echo '<li>';
+        echo '<a href="'.esc_attr($meta['url']).'">';
+        echo esc_html($name);
+        echo '</a>';
+        echo ' ('.$meta['lang'].')';
+        echo '</li>';
+    }
+    echo '</ul>';
 }
 
 public function meta_box_settings($post, $metabox)

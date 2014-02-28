@@ -1,0 +1,84 @@
+# Copyright (C) 2014 PresenPress
+# This file is distributed under the same license as the PresenPress package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PresenPress 0.2.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/presenpress\n"
+"POT-Creation-Date: 2014-02-28 15:03:34+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: presenpress.php:302
+msgid "Presentations"
+msgstr ""
+
+#: presenpress.php:304
+msgid "Presentation"
+msgstr ""
+
+#: presenpress.php:305
+msgid "Add New Presentation"
+msgstr ""
+
+#: presenpress.php:306
+msgid "Edit Presentation"
+msgstr ""
+
+#: presenpress.php:307
+msgid "Add New"
+msgstr ""
+
+#: presenpress.php:308
+msgid "New Presentation"
+msgstr ""
+
+#: presenpress.php:309
+msgid "View Presentation"
+msgstr ""
+
+#: presenpress.php:310
+msgid "No Presentations found."
+msgstr ""
+
+#: presenpress.php:311
+msgid "No Presentations found in Trash."
+msgstr ""
+
+#: presenpress.php:315
+msgid "Search Presentations"
+msgstr ""
+
+#: presenpress.php:351
+msgid "Presentation Settings"
+msgstr ""
+
+#: presenpress.php:360
+msgid "Presentation Styles"
+msgstr ""
+
+#: presenpress.php:369
+msgid "Translators"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "PresenPress"
+msgstr ""
+
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://wpist.me/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Presentation with WordPress + Leap Motion."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Takayuki Miyauchi"
+msgstr ""

@@ -3,8 +3,8 @@ Contributors: miyauchi
 Donate link: http://wpist.me/
 Tags: presentation, leapmotion, reveal.js
 Requires at least: 3.6
-Tested up to: 3.5
-Stable tag: 0.2.1
+Tested up to: 3.8
+Stable tag: 0.2.2
 
 Presentation with WordPress + Leap Motion.
 
@@ -55,6 +55,10 @@ add_filter('presenpress_themes', function($themes){
     return $themes;
 });
 `
+
+= Translators =
+
+* Turkish(tr_TR) - [Serkan Algur](http://www.kaisercrazy.com/)
 
 == Installation ==
 
