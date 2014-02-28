@@ -21,12 +21,14 @@ register_activation_hook(__FILE__, 'presenpress_activation');
 register_deactivation_hook(__FILE__, 'presenpress_deactivation');
 
 function presenpress_activation(){
+    update_option('presenpress_activated', true);
     $presenpress = new PresenPress();
     $presenpress->init();
     flush_rewrite_rules();
 }
 
 function presenpress_deactivation(){
+    update_option('presenpress_activated', true);
     flush_rewrite_rules();
 }
 
@@ -84,12 +86,19 @@ public function plugins_loaded()
     add_filter('presenpress_content', 'wpautop'            );
     add_filter('presenpress_content', 'shortcode_unautop'  );
     add_filter('presenpress_content', 'prepend_attachment' );
+    add_action('delete_option', 'delete_option', 10, 1);
 
     load_plugin_textdomain(
         'presenpress',
         false,
         dirname(plugin_basename(__FILE__)).'/languages'
     );
+}
+
+public function my_delete_option($option){
+    if ('rewrite_rules' === $option && get_option('presenpress_activated')) {
+        $this->init();
+    }
 }
 
 public function presenpress_content($content)
@@ -341,8 +350,6 @@ public function init()
         self::post_type,
         $args
     );
-	//Some blogs can't handle new post_type slug. We can flush rewrite rules when plugin activated...
-	flush_rewrite_rules();
 }
 
 public function register_meta_box_cb()
