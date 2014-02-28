@@ -341,7 +341,8 @@ public function init()
         self::post_type,
         $args
     );
-
+	//Some blogs can't handle new post_type slug. We can flush rewrite rules when plugin activated...
+	flush_rewrite_rules();
 }
 
 public function register_meta_box_cb()
