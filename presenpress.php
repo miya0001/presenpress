@@ -4,7 +4,7 @@ Plugin Name: PresenPress
 Author: Takayuki Miyauchi
 Plugin URI: http://wpist.me/
 Description: Presentation with WordPress + Leap Motion.
-Version: 0.2.3
+Version: 0.2.4
 Author URI: http://wpist.me/
 Domain Path: /languages
 Text Domain: presenpress
