@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the PresenPress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PresenPress 0.2.2\n"
+"Project-Id-Version: PresenPress 0.2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/presenpress\n"
-"POT-Creation-Date: 2014-02-28 15:03:34+00:00\n"
+"POT-Creation-Date: 2014-03-02 11:31:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,65 +12,77 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: presenpress.php:302
+#: presenpress.php:298
 msgid "Presentations"
 msgstr ""
 
-#: presenpress.php:304
+#: presenpress.php:300
 msgid "Presentation"
 msgstr ""
 
-#: presenpress.php:305
+#: presenpress.php:301
 msgid "Add New Presentation"
 msgstr ""
 
-#: presenpress.php:306
+#: presenpress.php:302
 msgid "Edit Presentation"
 msgstr ""
 
-#: presenpress.php:307
+#: presenpress.php:303
 msgid "Add New"
 msgstr ""
 
-#: presenpress.php:308
+#: presenpress.php:304
 msgid "New Presentation"
 msgstr ""
 
-#: presenpress.php:309
+#: presenpress.php:305
 msgid "View Presentation"
 msgstr ""
 
-#: presenpress.php:310
+#: presenpress.php:306
 msgid "No Presentations found."
 msgstr ""
 
-#: presenpress.php:311
+#: presenpress.php:307
 msgid "No Presentations found in Trash."
 msgstr ""
 
-#: presenpress.php:315
+#: presenpress.php:311
 msgid "Search Presentations"
 msgstr ""
 
-#: presenpress.php:351
+#: presenpress.php:346
 msgid "Presentation Settings"
 msgstr ""
 
-#: presenpress.php:360
+#: presenpress.php:355
 msgid "Presentation Styles"
 msgstr ""
 
-#: presenpress.php:369
+#: presenpress.php:364
 msgid "Translators"
+msgstr ""
+
+#: presenpress.php:398
+msgid "Theme:"
+msgstr ""
+
+#: presenpress.php:425
+msgid "Browsing History:"
+msgstr ""
+
+#: presenpress.php:450
+msgid "Transtion:"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "PresenPress"
 msgstr ""
 
-#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.2)  #-#-#-#-#
+#. #-#-#-#-#  presenpress.pot (PresenPress 0.2.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wpist.me/"
 msgstr ""

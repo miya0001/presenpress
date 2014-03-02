@@ -58,7 +58,8 @@ add_filter('presenpress_themes', function($themes){
 
 = Translators =
 
-* Turkish(tr_TR) - [Serkan Algur](http://www.kaisercrazy.com/)
+* Turkish(tr_TR) - [Serkan Algur](http://wpadami.com/)
+* Japanese(ja) - [Takayuki Miyauchi](http://firegoby.jp/)
 
 == Installation ==
 

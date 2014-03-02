@@ -41,7 +41,11 @@ const post_type = 'presenpress';
 private $translators = array(
     'Serkan Algur' => array(
         'lang' => 'Turkish',
-        'url' => 'http://www.kaisercrazy.com/',
+        'url' => 'wpadami.com',
+    ),
+    'Takayuki Miyauchi' => array(
+        'lang' => 'Japanese',
+        'url' => 'http://firegoby.jp/',
     ),
 );
 
@@ -393,7 +397,10 @@ public function meta_box_settings($post, $metabox)
     $themes = $this->get_reveal_themes();
 
     echo '<tr>';
-    echo '<th style="text-align: left; font-weight: normal;">Theme:</th>';
+    printf(
+        '<th style="text-align: left; font-weight: normal;">%s</th>',
+        __('Theme:', 'presenpress')
+    );
     echo '<td>';
     echo "<select name=\"presenpress_theme\">";
     foreach ($themes as $t => $tvalue) {
@@ -417,7 +424,10 @@ public function meta_box_settings($post, $metabox)
     $hist = get_post_meta($post->ID, '_presenpress_history', true);
 
     echo '<tr>';
-    echo '<th style="text-align: left; font-weight: normal;">Browsing History:</th>';
+    printf(
+        '<th style="text-align: left; font-weight: normal;">%s</th>',
+        __('Browsing History:', 'presenpress')
+    );
     echo '<td>';
     if ($hist) {
         $checked = 'checked="checked"';
@@ -439,7 +449,10 @@ public function meta_box_settings($post, $metabox)
     $transition = get_post_meta($post->ID, '_presenpress_transition', true);
 
     echo '<tr>';
-    echo '<th style="text-align: left; font-weight: normal;">Transtion:</th>';
+    printf(
+        '<th style="text-align: left; font-weight: normal;">%s</th>',
+        __('Transtion:', 'presenpress')
+    );
     echo '<td>';
     $transitions = array(
         'default',

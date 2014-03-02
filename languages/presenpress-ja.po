@@ -1,85 +1,81 @@
+# Copyright (C) 2014 PresenPress
+# This file is distributed under the same license as the PresenPress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PresenPress\n"
+"Project-Id-Version: PresenPress 0.2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/presenpress\n"
 "POT-Creation-Date: 2014-03-02 11:31:02+00:00\n"
-"PO-Revision-Date: 2014-02-28 14:56+0200\n"
-"Last-Translator: Serkan Algur <info@wpadami.com>\n"
-"Language-Team: Serkan Algur <info@wpadami.com>\n"
-"Language: tr_TR\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: ../..\n"
 
 #: presenpress.php:298
 msgid "Presentations"
-msgstr "Sunumlar"
+msgstr "プレゼンテーション"
 
 #: presenpress.php:300
 msgid "Presentation"
-msgstr "Sunum"
+msgstr "プレゼンテーション"
 
 #: presenpress.php:301
 msgid "Add New Presentation"
-msgstr "Yeni Sunum Ekle"
+msgstr "プレゼンテーションを新規作成"
 
 #: presenpress.php:302
 msgid "Edit Presentation"
-msgstr "Sunum Düzenle"
+msgstr "プレゼンテーションを編集"
 
 #: presenpress.php:303
 msgid "Add New"
-msgstr "Yeni Ekle"
+msgstr "新規作成"
 
 #: presenpress.php:304
 msgid "New Presentation"
-msgstr "Yeni Sunum"
+msgstr "新規プレゼンテーション"
 
 #: presenpress.php:305
 msgid "View Presentation"
-msgstr "Sunumu Görüntüle"
+msgstr "プレゼンテーションを表示"
 
 #: presenpress.php:306
 msgid "No Presentations found."
-msgstr "Sunum Bulunamadı"
+msgstr "プレゼンテーションが見つかりません。"
 
 #: presenpress.php:307
 msgid "No Presentations found in Trash."
-msgstr "Çöpte Sunum Bulunamadı."
+msgstr "ゴミ箱にプレゼンテーションはありません。"
 
 #: presenpress.php:311
 msgid "Search Presentations"
-msgstr "Sunumlarda Ara"
+msgstr "プレゼンテーションを検索"
 
 #: presenpress.php:346
 msgid "Presentation Settings"
-msgstr "Sunum Seçenekleri"
+msgstr "プレゼンテーション設定"
 
 #: presenpress.php:355
 msgid "Presentation Styles"
-msgstr "Sunum Şablonları"
+msgstr "プレゼンテーションのスタイル"
 
 #: presenpress.php:364
 msgid "Translators"
-msgstr "Çevirenler"
+msgstr "翻訳者"
 
 #: presenpress.php:398
 msgid "Theme:"
-msgstr ""
+msgstr "テーマ"
 
 #: presenpress.php:425
 msgid "Browsing History:"
-msgstr ""
+msgstr "ブラウジング履歴"
 
 #: presenpress.php:450
-#, fuzzy
 msgid "Transtion:"
-msgstr "Çevirenler"
+msgstr "トランジション"
 
 #. Plugin Name of the plugin/theme
 msgid "PresenPress"
